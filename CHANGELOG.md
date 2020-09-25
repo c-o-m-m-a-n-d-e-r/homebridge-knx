@@ -1,5 +1,41 @@
 # Changelog for Version 0.3.x
 
+## 0.3.27
+- @CyberChris79 found a breaking change in HAP-nodeJS (the HAP protocol implementation which homebridge is build on) which broke the tiny web server that can display HAP Services and such (see https://github.com/snowdd1/homebridge-knx#looking-up-service-types-and-characteristics) *Note to self: the webserver implementation is ugly and has grown too much for kind-of inline code in index.js*
+
+## 0.3.26
+- @giase82 updated the ThermostatMode handler in #169 to be able to update the Bus value also from HomeKit
+- Found another glitch in the knxaccess.js library where KNXJS was used even if it was not specified (regression from 0.3.24)
+
+## 0.3.25
+- martijndierkx contributed an MDTJalousieActuator handler in PR #167 - Big thanks to him!
+- I updated the SimpleGarageDoor handler to accept two new local constants: "ResetOpenDoorContactTime" and "ResetCloseDoorContactTime" in Milliseconds if you want to issue an KNX "0" after a givin time, in case you don't want or must not have a relay powered all the time. Fixes German issue 65 from homebridge-knx-de at [https://github.com/snowdd1/homebridge-knx-de/issues/65]
+- And I updated the handler API doc to reflect the changes from v0.3.21; Actually the SimpleGarageDoor handler uses the new init event.
+
+## 0.3.24 
+- patched configuration to default to knxd again. Fixes [#162](https://github.com/snowdd1/homebridge-knx/issues/162). See also changed documentation in [knx_config.json.md](https://github.com/snowdd1/homebridge-knx/blob/master/knx_config.json.md)
+
+## 0.3.23 
+- With PR [#160](https://github.com/snowdd1/homebridge-knx/pull/161) Luehrsen added the ability to have local add-in directories. I hope that you all still continue to share your add-ins ("handler"s) via PRs here, so that all of us can benefit from the developments.
+- Homebridge made a leap to version 1.0.0 - with **bracking changes**:
+  - you all need to change your config.json and add the KNX platform manually! See updated sample file [https://github.com/snowdd1/homebridge-knx/blob/master/KNX-sample-config.json](https://github.com/snowdd1/homebridge-knx/blob/master/KNX-sample-config.json) and issue [#163](https://github.com/snowdd1/homebridge-knx/issues/163)
+  - node version needs to be at least 10.0 now!
+- Dependency bump to current versions
+
+
+## 0.3.22 
+- thanks to [Paul](https://github.com/c-o-m-m-a-n-d-e-r)'s PR #152, now knxd is not mandatory any more. Documentation will follow!
+- And he also fixed the typo in the GarageDoorAdvanced handler in #158. 
+
+## 0.3.21
+- new call hooks for custom handlers. Invented by [ctschach](https://github.com/ctschach/homebridge-knx/commit/5829bf2a1ccf2fa34e37b4d55d87c763a0d5e786), the custom handlers now get informed when the service is ready 
+  - `onServiceInit()`  
+  and when all devices are loaded and initialized
+  - `onHomeKitReady()`
+
+## 0.3.20
+- thanks to hints in #149 I found another glitch in the dimmer handler, which was there for ... well, let's settle for "a long time" :-)
+
 ## 0.3.19
 - new feature: [EIBHomeControl](https://github.com/EIBHomeControl) contributed a simple security system handler.
 
